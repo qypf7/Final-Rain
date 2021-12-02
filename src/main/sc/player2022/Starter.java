@@ -37,7 +37,7 @@ public class Starter {
   
   public static void main(String[] args) {
     System.setProperty("file.encoding", "UTF-8");
-    System.out.println("Hey");
+
     // Parameter definieren
     CmdLineParser parser = new CmdLineParser();
     CmdLineParser.Option hostOption = parser.addStringOption('h', "host");
