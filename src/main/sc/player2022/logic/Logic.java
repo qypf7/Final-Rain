@@ -37,7 +37,7 @@ public class Logic implements IGameHandler {
 
     log.info("Sende {} nach {}ms.", move, System.currentTimeMillis() - startTime);
     return move;
-  }
+  } 
 
   @Override
   public void onUpdate(IGameState gameState) {
