@@ -20,7 +20,6 @@ import java.util.Random;
 
 public class Logic implements IGameHandler {
   private static final Logger log = LoggerFactory.getLogger(Logic.class);
-  private int Zahl;
   // Suchtiefe
   /**
    * Die Suchtiefe gibt an wieviele Ebenen man in den MinMax-Baum hineingeht.
@@ -67,7 +66,7 @@ public class Logic implements IGameHandler {
     log.info("Das Spiel ist beendet, Ergebnis: {}", data);
   }
 
-  int vielZuLangerNameFuerEineVariable;
+  private int onlyOnce;
   /**
    * Die calculateMove Methode wird ausgeführt wenn die KI am Zug ist.
    * @return einen Zug, den die KI im Spiel ausführen wird  
@@ -78,24 +77,18 @@ public class Logic implements IGameHandler {
     long startTime = System.currentTimeMillis();
     log.info("Es wurde ein Zug von {} angefordert.", gameState.getCurrentTeam());
 
-    if (vielZuLangerNameFuerEineVariable == 0) {
+    if (onlyOnce == 0) {
       maxIsStarting = (gameState.getCurrentTeam() == gameState.getStartTeam() ? true : false);
       teamMax = (maxIsStarting ? Team.ONE : Team.TWO);
       teamMin = (maxIsStarting ? Team.TWO : Team.ONE); 
       ambersMax = gameState.getPointsForTeam(teamMax);
       ambersMin = gameState.getPointsForTeam(teamMin);
-      vielZuLangerNameFuerEineVariable = 1;
+      onlyOnce = 1;
     }
-
-    for (int i = 0; i < 10000; i++) {
-      gameState.getPossibleMoves();
-    }
-    System.out.println(System.currentTimeMillis() - startTime);
 
     Move move = findBestMove(gameState); // die Variable move soll der best mögliche Zug sein
     log.info("Sende {} nach {}ms.", move, System.currentTimeMillis() - startTime);
     
-    System.out.println(Zahl);
     return move; // den besten Zug, den die KI zur Verfügung hat
   }
 
@@ -227,7 +220,6 @@ public class Logic implements IGameHandler {
    * aber nicht, ob der Spieler auch in der nächsten Runde vorteilhaft auf dem Spielbrett steht 
    */
   public int evaluate(GameState gameState) {
-    Zahl += 1;
     
     int scoreMax = 0, scoreMin = 0;
     int ambersMax = gameState.getPointsForTeam(teamMax);
